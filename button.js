@@ -13,12 +13,12 @@ document.querySelector(".like-button").onclick = () => {
         $('#balloon-container').fadeIn();
     }, 1500);
 
-    setTimeout(() => {
-        $('#canvas').slideUp(2000);
-        $('#balloon-container').slideUp(2000);
-        $('#merrywrap').slideDown(2000);
+    // setTimeout(() => {
+    //     $('#canvas').slideUp(2000);
+    //     $('#balloon-container').slideUp(2000);
+    //     $('#merrywrap').slideDown(2000);
 
-    }, 10000);
+    // }, 10000);
 
 
 

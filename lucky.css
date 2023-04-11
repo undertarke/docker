@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:600, 300");
 *,
 *::after,
 *::before {
@@ -18,8 +17,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightgray;
-  font-family: "Open sans", sans-serif;
 }
 
 .rule {
@@ -116,7 +113,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Open sans", sans-serif;
+  
 }
 .wheel__arrow::after {
   content: "";
@@ -215,4 +212,6 @@ body {
 .congratulation__note {
   text-align: center;
   font-size: 40px;
+  font-family: fantasy;
+
 }
