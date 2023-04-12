@@ -18,18 +18,18 @@
 
 
     <!--  one -->
-   
-        <div id="message" class="message">
-            <button class="message__btn">click me</button>
-            <p class="message__text"></p>
-        </div>
-        <!-- <button class="reload">reload</button> -->
 
-        <!-- particles.js container -->
-        <div id="particles-js"></div>
-  
+    <div id="message" class="message" style="display: none;">
+        <button class="message__btn">click me</button>
+        <p class="message__text"></p>
+    </div>
+    <!-- <button class="reload">reload</button> -->
+
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+
     <!-- three -->
-    <div id="merrywrap" class="merrywrap" style="display: none;">
+    <div id="merrywrap" class="merrywrap">
         <div class="giftbox">
             <div class="cover">
                 <div></div>
@@ -41,36 +41,74 @@
     <!-- four -->
 
 
-    <div class="wheel" id="wheel" style="display: none;">
-        <div class="wheel__inner">
-            <div class="wheel__sec">
-            </div>
-            <div class="wheel__sec">
-            </div>
-            <div class="wheel__sec">
-            </div>
-            <div class="wheel__sec">
-            </div>
-            <div class="wheel__sec">
-            </div>
-            <div class="wheel__sec">
-            </div>
+    <div class="hidden" id="wheelPage">
+        <span id="wheelNameDisplay"></span>
+        <span id="landingEntry">Press 'Spin'</span>
+
+        <div id="wheelContainer">
         </div>
-        <div class="wheel__arrow">
-            <button class="wheel__button">Click</button>
-        </div>
+
+        <button id="spin">XOAY</button>
+        <button id="edit">E</button>
     </div>
-    <div class="congratulation">
-        <div class="congratulation__container">
-            <div class="congratulation__close">
-                <i class="fas fa-times"></i>
+
+    <div class="hidden" id="createPage">
+        <span class="title">Create wheel</span>
+
+        <div class="settings">
+            <input placeholder="Wheel name" id="wheelName" />
+
+            <!--     <br>
+          <span>Options</span> -->
+            <hr>
+
+            <div id="entryList">
             </div>
-            <div class="congratulation__emotion">
-                <i class="fas fa-smile"></i>
-            </div>
-            <p class="congratulation__note"></p>
+
+            <button id="addEntry">+</button>
+
+            <hr>
         </div>
+
+        <button id="createWheelButton">Create</button>
     </div>
+
+    <label for="menuCheckbox" class="openMenu">
+        <div class="bars">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </label>
+
+    <input id="menuCheckbox" type="checkbox" />
+    <div class="menu">
+        <h3>Wheels</h3>
+        <ul id="wheelsList">
+        </ul>
+    </div>
+
+    <template id="wheelEntryTemplate">
+        <li class="wheelEntryContainer">
+            <span class="wheelEntry"></span>
+        </li>
+    </template>
+
+    <template id="entryItemTemplate">
+        <div class="entryItem">
+            <input placeholder="Type something" class="entryText" />
+            <button class="remove">✖</button>
+        </div>
+    </template>
+
+    <template id="errorTemplate">
+        <div class="errorPopupContainer">
+            <div class="errorPopup">
+                <span class="msg">Error message here</span>
+                <span class="close">x</span>
+            </div>
+        </div>
+    </template>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
