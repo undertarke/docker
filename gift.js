@@ -1,3 +1,4 @@
+
 window.onload = function () {
     var merrywrap = document.getElementById("merrywrap");
     var box = merrywrap.getElementsByClassName("giftbox")[0];

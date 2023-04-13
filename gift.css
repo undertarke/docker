@@ -6,6 +6,7 @@ html,
 body,
 .container {
     height: 100%;
+    font-family: "Kaushan Script", "Sail", cursive;
 }
 
 div#beach,
@@ -81,8 +82,6 @@ div#sea {
     margin-left: -150px;
     top: 40%;
     z-index: 10;
-    font-family: "Kaushan Script", "Sail", cursive;
-
 }
 
 .giftbox>div {
