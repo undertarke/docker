@@ -14,5 +14,9 @@ userRoute.post("/createUser", createUser);
 //PUT update user
 userRoute.put("/updateUser/:user_id", updateUser);
 
+userRoute.get("/get-user-demo",(req,res)=>{
+    res.send("Hello world")
+})
+
 
 module.exports = userRoute;
