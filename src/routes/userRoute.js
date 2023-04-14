@@ -15,7 +15,7 @@ userRoute.post("/createUser", createUser);
 userRoute.put("/updateUser/:user_id", updateUser);
 
 userRoute.get("/get-user-demo",(req,res)=>{
-    res.send("Hello world node js")
+    res.send("Hello abc")
 })
 
 
