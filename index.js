@@ -81,10 +81,14 @@ app.delete("/delete-food/:id", async (req, res) => {
 
 });
 
-app.get("/get-relation",  (req, res) => {
+app.get("/get-relation", (req, res) => {
 
     // relation => include
-    let data =  prisma.user.findMany();
+    let data = prisma.user.findMany();
 
     res.send(data);
+})
+
+app.get("/demo", (req, res) => {
+    res.send("hello world")
 })
