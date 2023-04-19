@@ -1,22 +1,17 @@
-# cài nodejs
 FROM node:16
 
-# => for M1 rich kick
-#FROM --platform=linux/arm64 torizon/debian:2-bullseye  
+WORKDIR /app
 
-WORKDIR /usr/src/app
+COPY package*.json ./
 
-COPY package*.json .
+COPY prisma ./prisma/
 
 RUN npm install
 
-COPY prisma/schema.prisma prisma/
-
-# Generate the Prisma client
-RUN npx prisma generate
-
 COPY . .
+
+RUN npm run build
 
 EXPOSE 8080
 
-CMD ["node","index.js"]
+CMD [ "npm", "run", "start:prod" ]
