@@ -1,9 +1,19 @@
-FROM nginx
+FROM node:16
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /usr/src/app
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y git
+COPY package*.json .
+
+COPY prisma ./prisma/
+
+RUN yarn install
 
 COPY . .
+
+# định nghĩa port private (trong)
+EXPOSE 8080
+
+# npm start, node src/index.js 
+CMD ["node","index.js"]
+
+# docker build . -t img-node
