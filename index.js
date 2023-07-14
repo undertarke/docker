@@ -101,6 +101,14 @@ app.get("/get-food", async (req, res) => {
     res.send(data);
 })
 
+app.get("/get-user", async (req, res) => {
+    // .findAll()
+    // SELECT * FROM food WHERE food_name LIKE '%a%'
+    // JOIN food , food_type
+    let data = await prisma.user.findMany();
+    res.send(data);
+})
+
 app.post("/create-food/:food_id", async (req, res) => {
     let { food_id } = req.params; // string
     let { food_name, image, price, desc, type_id, color } = req.body;
