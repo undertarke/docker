@@ -1,21 +1,11 @@
-FROM node:16
+# cài phần mềm => 80
+FROM nginx 
+#đường dẫn làm việc ở container docker
+WORKDIR /usr/share/nginx/html
+# sao chép file từ máy local lên docker
+COPY . . 
 
-WORKDIR /usr/src/app
+# docker build . -t img-html
+# docker run -d -p 3000:80 --name cons-html img-html
 
-
-COPY package*.json .
-COPY prisma ./prisma/
-
-RUN yarn install
-
-COPY . .
-
-RUN yarn run build
-
-# định nghĩa port private (trong)
-EXPOSE 8080
-
-# npm start, node src/index.js 
-CMD ["yarn","run","start:prod"]
-
-# docker build . -t img-node
+# npm run build
