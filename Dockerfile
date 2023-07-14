@@ -1,11 +1,20 @@
-# cài phần mềm => 80
-FROM nginx 
-#đường dẫn làm việc ở container docker
-WORKDIR /usr/share/nginx/html
-# sao chép file từ máy local lên docker
-COPY . . 
+FROM node:16
 
-# docker build . -t img-html
-# docker run -d -p 3000:80 --name cons-html img-html
+WORKDIR /usr/src/app
 
-# npm run build
+COPY package*.json .
+
+RUN yarn install --legacy-peer-deps
+
+COPY prisma ./prisma/
+RUN yarn prisma generate
+
+COPY . .
+
+#private port sẽ chạy
+EXPOSE 8080
+
+# node index.js => khởi chạy server
+CMD ["node","index.js"]
+
+# docker run -d -p 80:80 -e PASS=1234 -e DATABASE_URL=mysql://root:1234@mysql_db:3306/db_food?schema=public --name abc imageabc
