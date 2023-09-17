@@ -14,7 +14,7 @@ import { PrismaClient } from '@prisma/client';
 
 const model = new PrismaClient();
 
-app.get("/get-food-2", async (req, res) => {
+app.get("/get-food", async (req, res) => {
     // SELECT * FROM user WHERE full_name LIKE
     // .findAll()
     // .findOne()
