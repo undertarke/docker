@@ -1,9 +1,17 @@
-FROM nginx
+FROM node:16
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /usr/src/app
+
+COPY package*.json .
+
+# cài node module trên server
+RUN yarn install 
+
+COPY prisma ./prisma/
+
+RUN yarn prisma generate
 
 COPY . .
 
-
-# docker build ./build -t img-react
-# docker run -d -p 3100:80 --name cons-react img-react 
+EXPOSE 8080
+CMD ["yarn","start"]
