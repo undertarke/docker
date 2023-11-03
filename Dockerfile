@@ -2,7 +2,7 @@ FROM node:16
 
 WORKDIR /usr/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN yarn install
 
@@ -10,7 +10,7 @@ RUN yarn install
 COPY prisma ./prisma/
 RUN yarn prisma generate 
 
-COPY ./ ./
+COPY . .
 
 EXPOSE 8080
 
