@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /usr/app/
+WORKDIR /usr/app
 
 COPY package*.json .
 
@@ -10,7 +10,7 @@ RUN yarn install
 COPY prisma ./prisma/
 RUN yarn prisma generate 
 
-COPY . .
+COPY ./ ./
 
 EXPOSE 8080
 
