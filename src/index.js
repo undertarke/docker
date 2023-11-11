@@ -6,7 +6,9 @@ app.use(express.static(".")) // định vị đường dẫn để tải tài ng
 
 // chặn thông qua domain của FE
 import cors from 'cors';
-app.use(cors())
+app.use(cors({
+    origin:["http://localhost:3000","http://cybersoft.vn","https://cybersoft.vn"]
+}))
 
 app.listen(8080); // => khởi tạo server BE nodejs với port tự động 
 import rootRoute from './routes/rootRoute.js';
@@ -29,7 +31,7 @@ const options = {
 }
 
 const specs = swaggerJsDoc(options);
-app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api-swagger", swaggerUi.serve, swaggerUi.setup(specs));
 
 
 
