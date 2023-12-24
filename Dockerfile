@@ -1,23 +1,12 @@
-FROM node:16
+# cài đặt ứng dụng trên mạng
+FROM nginx
 
-WORKDIR /usr/node34_backend
+# đường dẫn làm việc trên máy ảo container
+WORKDIR /usr/share/nginx/html
 
-COPY package*.json ./
+# copy hết tất cả các file từ máy vào máy ảo container
+COPY   .   .
 
-RUN yarn install
+# docker build . -t img-html
 
-COPY prisma ./prisma
-
-RUN yarn prisma generate
-
-COPY . .
-
-EXPOSE 8080
-
-CMD ["node" , "src/index.js"]
-
- 
-
-# docker build . -t img-node
-
-# docker run -d -p 8080:8080 --name cons-node img-node
+# docker run -d -p 3030:80 --name cons-html img-html
