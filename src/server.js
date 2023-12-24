@@ -159,6 +159,7 @@ const specs = swaggerJsDoc(options);
 
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
 
+app.get("/demo-test", (req, res) => { res.send("hello world") })
 
 
 // setup prisma
