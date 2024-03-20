@@ -9,6 +9,16 @@
  *              description: success   
  */
 
+/**
+ * @swagger
+ * /video/get-video-type:
+ *  delete:
+ *      description: responses
+ *      responses:
+ *          200: 
+ *              description: success   
+ */
+
 
 /**
  * @swagger
