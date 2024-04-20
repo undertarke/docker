@@ -1,45 +1,45 @@
 
 /**
  * @swagger
- * /video/get-video-type:
- *  get:
+ * /user/get-user:
+ *   get:
  *      description: responses
+ *      tags: [User]
  *      responses:
  *          200: 
  *              description: success   
  */
 
-/**
- * @swagger
- * /video/get-video-type:
- *  delete:
- *      description: responses
- *      responses:
- *          200: 
- *              description: success   
- */
 
 
 /**
  * @swagger
  * /api/v1/user/updateUser/{id}:
- *  delete:
+ *  put:
  *      description: responses
- *      tags: [User]
+ *      tags: [Video]
+ * 
  *      parameters:
- *      - in: headers
+ *     
+ *      - in: path
  *        name: id
+ * 
+ * 
  *      - in: body
  *        name: user
+ * 
  *        schema:
  *           type: object
  *           properties:
+ *             userId:
+ *              type: number
  *             userName:
  *               type: string
  *             firstName:
  *               type: string
  *             lastName:
  *               type: string
+ * 
  *      responses:
  *          200: 
  *              description: res   

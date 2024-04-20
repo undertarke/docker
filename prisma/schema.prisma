@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:1234@node-mysql:3306/db_youtube"
 }
 
 model video {
@@ -78,4 +78,12 @@ model video_like {
 
   @@index([user_id], map: "user_id")
   @@index([video_id], map: "video_id")
+}
+
+model chat {
+  id      Int       @id @unique(map: "id") @default(autoincrement())
+  user_id Int?
+  content String?   @db.VarChar(255)
+  room_id String?   @db.VarChar(20)
+  date    DateTime? @db.DateTime(0)
 }

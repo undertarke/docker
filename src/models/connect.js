@@ -1,20 +1,40 @@
-// yarn add mysql2
+
+// const connect = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "1234",
+//     port: "3306",
+//     database: "dbyoutube"
+// })
 
 // yarn add sequelize
-import { Sequelize } from 'sequelize'
-import config from '../config/config.js'
 
-const sequelize = new Sequelize(config.database,config.user, config.pass, {
-    host: config.host,
-    port: config.port,
-    dialect: config.dialect
-})
+import { Sequelize } from "sequelize";
+import config from "../config/config.js";
 
+console.log("connect",config)
 
-export default sequelize;
+const sequelize = new Sequelize(
+    config.database,
+    config.user,
+    config.pass,
+    {
+        host: config.host,
+        port: config.port,
+        dialect: config.dialect
+    }
+);
+
+export default sequelize
+
+// dùng để test kết nối vào db
+// try {
+//     sequelize.authenticate()
+//     console.log("OK")
+// } catch (error) {
+//     console.log(error)
+
+// }
+// node src/models/connect.js
 
 // yarn add sequelize-auto
-// yarn sequelize-auto -h localhost -d db_youtube -u root -x 1234 -p 3306 --dialect mysql -o ./src/models -l esm
-// npx 
-
-// biến môi trường: environment

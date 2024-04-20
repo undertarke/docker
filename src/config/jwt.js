@@ -1,32 +1,48 @@
-// yarn add jsonwebtoken
 import jwt from 'jsonwebtoken';
-import { responseApi } from './response.js';
+
 
 // tạo token
-// data => object {}
-export const createToken = (data) => jwt.sign(data, "BI_MAT", { algorithm: "HS256", expiresIn: "5s" })
-// HS256, thời hạn sử dụng: expiresIn
-// kiểm tra token
-// 1: sai khóa bảo mật
-// 2: hết hạn sử dụng
-// 3: token sai định dạng, token thiếu dữ liệu,....
-// err = null => token hợp lệ
-// err != null => token ko hợp lệ
-export const checkToken = (token) => jwt.verify(token, "BI_MAT", (err, decode) => err)
+export const createToken = (data) => {
+    // 5 - 10' => refresh token
+    // object
+    return jwt.sign(data, "BI_MAT", { expiresIn: "5s" })
+}
 
-export const createTokenRef = (data) => jwt.sign(data, "BI_MAT_2", { algorithm: "HS256", expiresIn: "7d" })
-export const checkTokenRef = (token) => jwt.verify(token, "BI_MAT_2", (err, decode) => err)
+
+// kiểm tra token
+// 3 lỗi => hết hạn, sai khóa bảo mật, sai định dạng token
+
+export const checkToken = (token) => jwt.verify(token, "BI_MAT", error => error)
+
+
+
+export const createTokenRef = (data) => {
+
+    return jwt.sign(data, "BI_MAT_REFRESH", { expiresIn: "60d" })
+}
+export const checkTokenRef = (token) => jwt.verify(token, "BI_MAT_REFRESH", error => error)
+
 
 // giải mã token
-export const dataToken = (token) => jwt.decode(token)
+export const decodeToken = (token) => {
+    return jwt.decode(token);
+}
 
-export const midVerifyToken = (req, res, next) => {
+
+export const middleToken = (req, res, next) => {
+
     let { token } = req.headers;
-    
-    let check = checkToken(token)
 
-    if (check == null)
+    let error = checkToken(token);
+    if (error == null) {
         next()
-    else
-        responseApi(res, 401, "", check)
+    } else {
+
+        if (error.name == "TokenExpiredError")
+            res.status(401).send("TokenExpiredError")
+
+        else
+            res.status(401).send("Không có quyền")
+    }
+
 }

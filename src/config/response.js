@@ -1,10 +1,10 @@
-// 200
-// 400
-// 500
-export const responseApi = (res, code, data, message) => {
+
+export const responseData = (res, message, code, data) => {
+
     res.status(code).json({
-        message: message,
-        data: data,
+        message,
+        code,
+        data,
         date: new Date()
     })
 }
