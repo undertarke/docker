@@ -45,8 +45,8 @@ const getVideo = async (req, res) => {
 
 const getVideoType = async (req, res) => {
 
-    // let data = await model.video_type.findAll()
-    let data ="";
+    let data = await model.video_type.findAll()
+    
     responseData(res, "Thành công", 200, data)
 
 
@@ -55,8 +55,8 @@ const getVideoType = async (req, res) => {
 const getVideoByType = async (req, res) => {
     let { typeId } = req.params;
 
-       // let data = await model.video_type.findAll()
-       let data ="";
+       let data = await model.video_type.findAll()
+     
     responseData(res, "Thành công", 200, data)
 
 
@@ -75,8 +75,8 @@ const getVideoPage = async (req, res) => {
     let index = (page - 1) * pageSize;
 
     // SELECT * FROM video LIMIT index , pageSize
-    // let data = await model.video_type.findAll()
-    let data ="";
+    let data = await model.video_type.findAll()
+    // let data ="";
     let dataCount = 2
 
     responseData(res, "Thành công", 200, { data, pagination: Math.ceil(dataCount / pageSize) })
@@ -88,8 +88,8 @@ const getVideoById = async (req, res) => {
 
     let { videoId } = req.params;
 
-    // let data = await model.video_type.findAll()
-    let data ="";
+    let data = await model.video_type.findAll()
+    // let data ="";
 
     responseData(res, "Thành công", 200, data)
 
@@ -98,8 +98,8 @@ const getVideoById = async (req, res) => {
 const getComment = async (req, res) => {
 
     let { videoId } = req.params;
-    // let data = await model.video_type.findAll()
-    let data ="";
+    let data = await model.video_type.findAll()
+    // let data ="";
 
 
     responseData(res, "Thành công", 200, data)
@@ -119,7 +119,7 @@ const postComment = async (req, res) => {
         date_create: new Date()
     }
 
-    // await model.video_comment.create(newComment);
+    await model.video_comment.create(newComment);
 
     responseData(res, "Thành công", 200, "")
 

@@ -18,8 +18,8 @@ const signUp = async (req, res) => {
     try {
         let { fullName, email, password } = req.body;
 
-         // let data = await model.video_type.findAll()
-    let data ="";
+         let data = await model.video_type.findAll()
+    // let data ="";
         if (checkEmail) // kiểm tra email trùng
         {
             // thông báo email tồn tại
