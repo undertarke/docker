@@ -14,6 +14,9 @@ app.use(rootRouter)
 app.listen(8080)
 
 
+app.get("/get-demo", (req, res) => {
+    res.send("hello")
+})
 
 // yarn add swagger-ui-express swagger-jsdoc
 
@@ -103,7 +106,7 @@ const io = new Server(httpServer, {
 
 // lắng nghe key: connection => khi client kết nối vào server
 io.on("connection", (socket) => {
-    
+
     // app chat
     // 6-8
     socket.on("join-room", async (roomId) => {
