@@ -1,175 +1,120 @@
-import Video from "../models/video.js";
+import Video from "../models/video.js"
 
-import initModels from "../models/init-models.js";
-import sequelize from "../models/connect.js";
-import { response } from "../config/response.js";
-import { decodeToken } from "../config/jwt.js";
+import initModels from "../models/init-models.js"
+import sequelize from "../models/connect.js"
+import { responseSend } from "../config/response.js"
 
-const model = initModels(sequelize)
+import { PrismaClient } from "@prisma/client"
+
+let model = initModels(sequelize)
+
+let modelPrisma = new PrismaClient()
 
 const getVideo = async (req, res) => {
 
-    // SELECT * FROM video WHERE user_id = 5
-    // [{} , {}]
+    // SELECT * FROM video
     let data = await model.video.findAll({
-        where: {
-            video_id: 5
+        include: ["type", "user"]
+    })
+
+    data = await modelPrisma.video.findMany({
+        include: {
+            video_comment: {
+                include: {
+                    users: true,
+                }
+            },
         }
     })
 
-    data = await model.video.findByPk(5)
+    //sequelize
+    // model.video.create(newData)
+    // model.video.update(newData, where)
+    // model.video.destroy({ where })
 
-    // SELECT * FROM video LIMIT 1
-    // {}
-    data = await model.video.findOne();
+    // // prisma
+    // modelPrisma.video.create({ data: newData })
+    // modelPrisma.video.update({ data: newData, where })
+    // modelPrisma.video.delete({ where })
 
-    // SELECT * FROM video JOIN video_type JOIN user
-    data = await model.video.findAll({
-        include: ["type", "user"]
-        // include: [model.video_type, model.users]
-    })
-
-    response(res, data, "Thành công", 200)
-
+    responseSend(res, data, "Thành công !", 200)
 }
 
-const createVideo = (req, res) => {
 
-}
 
-const updateVideo = (req, res) => {
 
-}
+
+
+
 
 const getVideoType = async (req, res) => {
-    try {
-        let data = await model.video_type.findAll();
-        // res.send(data)
-        response(res, data, "Thành công", 200)
+    let data = await model.video_type.findAll()
 
-    } catch (exption) {
+    // res.send(data);
+    responseSend(res, data, "Thành công !", 200)
 
-        response(res, "", "Lỗi hệ thống", 500)
+}
 
-    }
+const getVideoWithType = async (req, res) => {
+    let { typeId } = req.params;
+
+
+    let data = await model.video.findAll({
+        where: {
+            type_id: typeId
+        }
+    })
+
+    // res.send(data)
+    responseSend(res, data, "Thành công !", 200)
+
 }
 
 
-const getVideoWithType = async (req, res) => {
-    try {
 
-
-        let { typeId } = req.params;
-
-        // SELECT * FROM video where type_id = typeId
-        let data = await model.video.findAll({
-            where: {
-                type_id: typeId
-            },
-            include: ["type", "user"]
-        })
-
-        response(res, data, "Thành công", 200)
-
-    } catch (exption) {
-
-        response(res, "", "Lỗi hệ thống", 500)
-
-    }
+const createVideo = (req, res) => {
+    // res.send("Create Video")
 
 }
 
 const getVideoPage = async (req, res) => {
 
-    try {
+    let { page } = req.params
 
-        let { page } = req.params
-        let pageSize = 3;
+    let pageSize = 3
+    let index = (page - 1) * pageSize
 
-        let index = (page - 1) * pageSize;
+    // SELECT * FROM video LIMIT index , pageSize
 
-        // SELECT * FROM video LIMIT index , pageSize
-
-        let data = await model.video.findAll({
-            offset: index,
-            limit: pageSize
-        })
-
-        let totalItem = await model.video.count()
-
-        let totalPage = Math.ceil(totalItem / pageSize)
-
-        response(res, { listVideo: data, totalPage }, "Thành công", 200)
-
-    } catch (exption) {
-
-        response(res, "", "Lỗi hệ thống", 500)
-
-    }
-
-}
-
-
-const getVideoDetail = async (req, res) => {
-    let { videoId } = req.params;
-
-    let data = await model.video.findByPk(videoId, {
-        include: ["type", "user"]
+    let data = await model.video.findAll({
+        offset: index,
+        limit: pageSize
     })
 
-    response(res, data, "Thành công", 200)
+    let listItem = await model.video.count();
+    let listPage = Math.ceil(listItem / pageSize)
+
+    // res.send({ data, listPage })
+
+    responseSend(res, { data, listPage }, "Thành công !", 200)
+
 }
 
+const getVideoById = async (req, res) => {
+    let { videoId } = req.params
 
-const getComment = async (req, res) => {
+    let data = await model.video.findByPk(videoId, {
+        include: ["user"]
+    })
 
-    let { videoId } = req.params;
-
-    let data = await model.video_comment.findAll({
-        where: {
-            video_id: videoId
-        },
-        include: ["user", "video"],
-        order: [
-            ["date_create", "DESC"]
-        ]
-
-    });
-
-    response(res, data, "Thành công", 200)
-}
-
-const createComment = async (req, res) => {
-    let { videoId, content } = req.body
-
-    let { token } = req.headers;
-    let { data } = decodeToken(token)
-
-    // liên quan đến datetime => lấy từ server => BE
-    let dateComment = new Date();
-
-    let newData = {
-        user_id: data.userId,
-        video_id: videoId,
-        content: content,
-        date_create: dateComment
-    }
-
-    await model.video_comment.create(newData);
-
-    response(res, "", "Bình luận thành", 200)
-
-
+    responseSend(res, data, "Thành công !", 200)
 }
 
 export {
     getVideo,
     createVideo,
-    updateVideo,
     getVideoType,
     getVideoWithType,
     getVideoPage,
-    getVideoDetail,
-    getComment,
-    createComment
+    getVideoById
 }

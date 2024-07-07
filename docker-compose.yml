@@ -1,34 +1,36 @@
-version: '3'
+version: '3.8'
 services:
+
+  nest-api:
+    container_name: nest-api
+    build: .
+    ports:
+      - 3000:8080
+    depends_on:
+      - mysql_db
+    env_file: .env
+    networks:
+      - node-network
+    
   mysql_db:
-    image: mysql # docker pull mysql
+    image: mysql
     container_name: mysql_db
     ports:
       - 3306:3306
-    networks:
-      - node-work-2
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-
-  node-be:
-    depends_on:
-      - mysql_db
-    build: . # docker build . -t img-node
-    container_name: node-be
-    ports:
-      - 8080:8080
+      - MYSQL_DATABASE=db_food
+    env_file:
+      - .env
+    volumes:
+      - mysql_db:/var/lib/mysql
     networks:
-      - node-work-2
-
-  react-fe:
-    build: ./node41_frontend
+      - node-network
 
 volumes:
-  mysql_db:
-    driver: local
-
+ mysql_db:
+ driver: local
 networks:
-  node-work-2:
+ node-network:
 
-# docker-compose up -d
-# docker-compose down
+ # docker-compose up -d

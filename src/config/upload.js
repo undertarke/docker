@@ -1,26 +1,16 @@
 
+import multer, { diskStorage } from 'multer'
 
 // yarn add multer
 
-import multer, { diskStorage } from 'multer';
-
-// khai báo nơi lưu
-// đổi tên file
-
 export const upload = multer({
     storage: diskStorage({
-        destination: process.cwd() + "/public/img",    // quy định url chưa lưu file
-        filename: (req, file, callback) => {
+        destination: process.cwd() + "/public/img", // nơi khai báo đường dẫn lưu file
+        filename: (req, file, callback) => {  // đổi tên file
 
-
-            // DD / MM / YYYY hh:mm:ss:ms
-            // get milisecond => 1/1/1970
-            let mSecond = new Date().getTime();
-
-            //  đổi tên file
-            callback(null, mSecond + "-" + Math.round(Math.random() * 1E9) + "_" + file.originalname);  // 1714396769235.jpg => funcition convert char special
+            // lưu ý nhảy audition =>>> 156234234325_●◉✿๖ۣۜLiên Kích ✘Liên Kích Đẹpッ✿◉●
+            let date = new Date()
+            callback(null, date.getTime() + "_" + file.originalname) // 1718200974007_cat.jpeg
         }
     })
-
-    // dest: process.cwd() + "/public/img"    // quy định url chưa lưu file
 })

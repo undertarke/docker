@@ -1,18 +1,13 @@
 
 /**
  * @swagger
- * /video/get-video-type:
- *  get:
+ * /video/get-video:
+ *   get:
  *      description: responses
- *      tags: [User]
  *      responses:
  *          200: 
  *              description: success   
  */
-
-
-
-
 
 /**
  * @swagger
