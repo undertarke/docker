@@ -271,3 +271,6 @@ app.use("/graphql", graphqlHTTP({
 
 
 
+app.get("/haha", (req, res) => {
+    res.send("haha")
+})
