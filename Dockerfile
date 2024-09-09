@@ -1,8 +1,8 @@
 FROM node:20
 
-WORKDIR /home/node42
+WORKDIR /app
 
-COPY package.json .
+COPY package*.json .
 
 RUN yarn config set network-timeout 3000000
 
@@ -13,9 +13,8 @@ COPY prisma ./prisma/
 RUN yarn prisma generate
 
 COPY . .
+RUN yarn run build
 
+EXPOSE 8080
 
-CMD ["yarn","prod"]
-
-# docker build . -t img-node
-# docker run -d -p 8080:8080 --network=node-network --name cons-node img-node
+CMD [ "yarn", "run", "start:prod" ]
