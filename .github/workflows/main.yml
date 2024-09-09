@@ -1,0 +1,10 @@
+name: Deploy
+on: 
+  push:
+    branches: 
+      - main
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: curl http://206.189.45.15:8888/cicd
