@@ -15,7 +15,7 @@ jobs:
 
     - name: Enable SSH debug and Deploy to VPS
       run: |
-        echo "Starting SSH debug and deployment..."
+        echo ${{ secrets.VPS_HOST }}
         # Bật verbose (-v) để lấy thông tin chi tiết từ quá trình SSH
         ssh -v -i ${{ secrets.VPS_KEY }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
           cd /root/app
