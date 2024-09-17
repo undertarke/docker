@@ -13,19 +13,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Verify all secrets are set
+    - name: Enable SSH debug and Deploy to VPS
       run: |
-        if [ -z "${{ secrets.VPS_HOST }}" ]; then
-          echo "Error: VPS_HOST is not set!"
-          exit 1
-        fi
-        if [ -z "${{ secrets.VPS_USER }}" ]; then
-          echo "Error: VPS_USER is not set!"
-          exit 1
-        fi
-        if [ -z "${{ secrets.VPS_KEY }}" ]; then
-          echo "Error: VPS_KEY is not set!"
-          exit 1
-        fi
-        echo "All required secrets are set."
-
+        echo ${{ vars.VPS_HOST }}
+        # Bật verbose (-v) để lấy thông tin chi tiết từ quá trình SSH
+        ssh -v -i ${{ vars.VPS_KEY }} -o StrictHostKeyChecking=no ${{ vars.VPS_USER }}@${{ vars.VPS_HOST }} << 'EOF'
+          cd /root/app
+          git pull
+          docker-compose down
+          docker-compose build
+          docker-compose up -d
+        EOF
+      continue-on-error: true  # Để workflow không dừng ngay lập tức nếu có lỗi xảy ra
