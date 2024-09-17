@@ -4,7 +4,19 @@ on:
     branches: 
       - main
 jobs:
-  say-hello:
+  build:
     runs-on: ubuntu-latest
     steps: 
-      - run: curl http://206.189.45.15:8888/cicd
+    - name: Deploy to VPS
+      uses: user_cicd
+      with:
+        host: ${{ secrets.VPS_HOST }}    
+        username: ${{ secrets.VPS_USER }}  
+        key: ${{ secrets.VPS_KEY }}        
+        passphrase: ${{ secrets.VPS_PASSPHRASE }} 
+        script:
+          cd /root/app  
+          git pull
+          docker-compose down   
+          docker-compose build
+          docker-compose up -d
