@@ -1,21 +1,27 @@
-name: Deploy
-on: 
+name: Deploy to VPS
+
+on:
   push:
     branches: 
       - main
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    steps: 
-    - name: Deploy to VPS
-      uses: appleboy/ssh-action@v0.1.3
-      with:
-        host: ${{ secrets.VPS_HOST }}    
-        username: ${{ secrets.VPS_USER }}  
-        key: ${{ secrets.VPS_KEY }}   
-        script: |
-          cd /root/app/docker
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Enable SSH debug and Deploy to VPS
+      run: |
+        echo "Starting SSH debug and deployment..."
+        # Bật verbose (-v) để lấy thông tin chi tiết từ quá trình SSH
+        ssh -v -i ${{ secrets.VPS_KEY }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          cd /root/app
           git pull
           docker-compose down
           docker-compose build
           docker-compose up -d
+        EOF
+      continue-on-error: true  # Để workflow không dừng ngay lập tức nếu có lỗi xảy ra
