@@ -12,8 +12,7 @@ jobs:
       with:
         host: ${{ secrets.VPS_HOST }}    
         username: ${{ secrets.VPS_USER }}  
-        key: ${{ secrets.VPS_KEY }}        
-        port: 22
+        key: ${{ secrets.VPS_KEY }}   
         script:
           cd /root/app/docker
           git pull
