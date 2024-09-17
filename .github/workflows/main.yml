@@ -15,8 +15,8 @@ jobs:
         key: ${{ secrets.VPS_KEY }}        
         passphrase: ${{ secrets.VPS_PASSPHRASE }} 
         script:
-          cd /root/app  
+          cd /root/app/docker
           git pull
-          docker-compose down   
+          docker-compose down
           docker-compose build
           docker-compose up -d
