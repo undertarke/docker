@@ -19,6 +19,8 @@
 #           docker-compose down
 #           docker-compose build
 #           docker-compose up -d
+#           docker image prune -f
+
 
 
 # # ssh-keygen -t rsa -b 4096 -C "node@gmail.com"
