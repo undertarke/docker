@@ -4,18 +4,7 @@ on:
     branches: 
       - main
 jobs:
-  build:
+  say-hello:
     runs-on: ubuntu-latest
     steps: 
-    - name: Deploy to VPS
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}    
-        username: ${{ secrets.VPS_USER }}  
-        key: ${{ secrets.VPS_KEY }}   
-        script: |
-          cd /root/docker
-          git pull
-          docker-compose down
-          docker-compose build
-          docker-compose up -d
+      - run: curl http://128.199.87.238:8888/cicd
