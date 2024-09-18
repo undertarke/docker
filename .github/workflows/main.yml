@@ -1,10 +1,28 @@
-name: Deploy
-on: 
-  push:
-    branches: 
-      - main
-jobs:
-  say-hello:
-    runs-on: ubuntu-latest
-    steps: 
-      - run: curl http://128.199.87.238:8888/cicd
+# name: Deploy
+# on: 
+#   push:
+#     branches: 
+#       - main
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps: 
+#     - name: Deploy to VPS
+#       uses: appleboy/ssh-action@v1.0.3
+#       with:
+#         host: ${{ secrets.VPS_HOST }}    
+#         username: ${{ secrets.VPS_USER }}  
+#         key: ${{ secrets.VPS_KEY }}   
+#         script: |
+#           cd /root/docker
+#           git pull
+#           docker-compose down
+#           docker-compose build
+#           docker-compose up -d
+
+
+# # ssh-keygen -t rsa -b 4096 -C "node@gmail.com"
+# # tên: github
+# # passphrase: khoảng trắng không đặt
+
+# # update file => nano ~/.ssh/authorized_keys
