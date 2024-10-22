@@ -115,7 +115,7 @@ let ProductService = class ProductService {
         return 'This action adds a new product';
     }
     async findAll() {
-        return await this.prismaService.products.findMany();
+        return "hello world !";
     }
     async findOne(id) {
         return await this.prismaService.products.findFirst({
