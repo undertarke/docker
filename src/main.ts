@@ -8,6 +8,6 @@ async function bootstrap() {
 
   SwaggerModule.setup("/swagger", app, SwaggerModule.createDocument(app, new DocumentBuilder().setTitle("NesJS bài tập").build()))
 
-  await app.listen(8081);
+  await app.listen(8080);
 }
 bootstrap();
