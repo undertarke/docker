@@ -19,8 +19,8 @@ export class ProductService {
 
   async findAll() {
 
-    // return await this.prismaService.products.findMany()
-    return "hello world !"
+    return await this.prismaService.products.findMany()
+    // return "hello world !"
   }
 
   async findOne(id: number) {
