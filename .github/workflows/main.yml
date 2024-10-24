@@ -11,6 +11,7 @@ jobs: # định nghĩa job sẽ thực hiện
     steps: # Các bước cụ thể mà job sẽ thực hiện
       - run: echo "hello" # Chạy một lệnh shell (cli)
       - run: curl https://apistore.cybersoft.edu.vn/api/Produc
+      - run: exit 1
 
   notify:
     runs-on: ubuntu-latest
@@ -27,5 +28,6 @@ jobs: # định nghĩa job sẽ thực hiện
           password: 'ormcjkndvveervwa' # Mật khẩu app password
           subject: 'CI Build Failed!'
           body: 'The CI build has failed. Check the logs for more details.'
-          to: 'recipient@example.com' # Địa chỉ nhận cảnh báo
-          from: 'sender@example.com'  # Địa chỉ gửi cảnh báo
+          to: 'khaitruong2112@gmail.com' # Địa chỉ nhận cảnh báo
+          from: 'sangrom2003@gmail.com'  # Địa chỉ gửi cảnh báo
+  
