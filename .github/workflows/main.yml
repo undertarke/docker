@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{ secrets.VPS_HOST }} - ${{ vars.VPS_HOST }}
+    - run: echo '${{ secrets.VPS_HOST }} - ${{ vars.VPS_HOST }}'
     # - name: Deploy to VPS
     #   uses: appleboy/ssh-action@v1.0.3
     #   with:
