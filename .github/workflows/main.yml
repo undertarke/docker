@@ -1,0 +1,16 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'hello world'
+      - run: curl https://apistore.cybersoft.edu.vn/api/Product
+    
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'demo test'
