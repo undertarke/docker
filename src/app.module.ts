@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { ProductModule } from './product/product.module';
+
+import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { PrismaService } from './prisma/prisma.service';
-import { PrismaModule } from './prisma/prisma.module';
-
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }), ProductModule,
-    AuthModule,
-    JwtModule.register({
-      global: true
-    }),
-    PrismaModule],
-  controllers: [],
-  providers: [PrismaService],
+  imports: [UserModule, ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule,
+    JwtModule.register({ global: true })
+  ],
+  controllers: [AppController],
+  providers: [AppService,JwtStrategy],
 })
 export class AppModule { }
+
+// decorator 

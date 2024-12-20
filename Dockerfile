@@ -1,23 +1,30 @@
-FROM node:20
+# source
+# yarn build
+# yarn start:prod
+# node_modules
+# package.json
+# yarn install
+# node
 
-WORKDIR /root/app
+# yarn , git
+FROM node 
 
-COPY package*.json .
+WORKDIR /root/nodejs
 
-COPY yarn*.lock .
-
+COPY package.json .
+   
 RUN yarn config set network-timeout 3000000
-
 RUN yarn install
 
-COPY ./src/prisma ./src/prisma/
+COPY ./src/prisma ./src/prisma
+
 RUN yarn prisma generate --schema ./src/prisma/schema.prisma
+RUN yarn prisma generate --schema ./src/prisma/schema-mysql.prisma
 
 COPY . .
 
 RUN yarn run build
 
-EXPOSE 8080
-
-CMD [ "yarn","run", "start:prod"]
-
+CMD ["yarn","start:prod"]
+# docker build . -t img-nest
+# docker run -d -p 8888:8080 --name nest-cons --network node-network img-nest

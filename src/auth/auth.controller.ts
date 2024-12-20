@@ -1,22 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService,
+    private jwtService: JwtService
+
+  ) { }
+
+  @Post("/login")
+  login() {
+    // username, password
+
+    let token = this.jwtService.signAsync({ data: "hello" }, {
+      algorithm: "HS256", secret: "BI_MAT", expiresIn: "5m"
+    })
 
 
+    // this.jwtService.verify("token", { secret: "BI_MAT" })
 
-  @Get("/login")
-  login(@Body() user) {
-    return this.authService.login(user);
+    return token
   }
 
-  @Post("/sign-up")
-  signUp(@Body() user) {
-    return this.authService.signUp(user);
-  }
+
+
 
 }
